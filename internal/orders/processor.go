@@ -13,7 +13,11 @@ type ProcessResult struct {
 	SuspiciousOrders    utils.SuspiciousOrdersMap
 }
 
-func ProcessOrdersData(orders []Order) ProcessResult {
+func ProcessOrdersData(orders []Order) *ProcessResult {
+	if len(orders) == 0 {
+		return nil
+	}
+
 	totalRevenuesCents := 0
 	suspiciousOrders := make(utils.SuspiciousOrdersMap)
 	revenuesIndexedByMarketplace := make(map[string]int)
@@ -45,7 +49,7 @@ func ProcessOrdersData(orders []Order) ProcessResult {
 		return marketplacesRevenue[i].AmountCents > marketplacesRevenue[j].AmountCents
 	})
 
-	return ProcessResult{
+	return &ProcessResult{
 		TotalRevenue:        totalRevenuesCents,
 		MarketplacesRevenue: marketplacesRevenue,
 		SuspiciousOrders:    suspiciousOrders,

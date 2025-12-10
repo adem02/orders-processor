@@ -11,8 +11,12 @@ func PrintTotalRevenues(totalRevenues int) {
 }
 
 func PrintMarketplaceRevenues(marketplaceRevenue []MarketplaceRevenue) {
-	fmt.Println("Revenues by marketplace:")
+	if len(marketplaceRevenue) == 0 {
+		fmt.Println("No marketplace revenues to print")
+		return
+	}
 
+	fmt.Println("Revenues by marketplace:")
 	for _, mr := range marketplaceRevenue {
 		text := fmt.Sprintf("- %s: %.2f EUR", mr.MarketPlace, centsToEuro(mr.AmountCents))
 		fmt.Println(text)
@@ -20,6 +24,11 @@ func PrintMarketplaceRevenues(marketplaceRevenue []MarketplaceRevenue) {
 }
 
 func PrintSuspiciousOrders(suspiciousOrders SuspiciousOrdersMap) {
+	if len(suspiciousOrders) == 0 {
+		fmt.Println("No suspicious orders found")
+		return
+	}
+
 	fmt.Println("Suspicious orders:")
 	for orderID, reason := range suspiciousOrders {
 		text := fmt.Sprintf("- %s: %s", orderID, reason)
