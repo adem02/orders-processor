@@ -48,3 +48,28 @@ func ToOrdersList(oiList []OrderInput) ([]Order, error) {
 
 	return orders, nil
 }
+
+func ToFilteredOrdersList(oi []OrderInput, from time.Time) ([]Order, error) {
+	orders := make([]Order, 0, len(oi))
+
+	for _, orderInput := range oi {
+		order, err := orderInput.ToOrder()
+		if err != nil {
+			return nil, err
+		}
+
+		if !order.CreatedAt.Before(from) {
+			orders = append(orders, *order)
+		}
+	}
+
+	return orders, nil
+}
+
+func CreateOrdersList(oiList []OrderInput, from *time.Time) ([]Order, error) {
+	if from == nil {
+		return ToOrdersList(oiList)
+	}
+
+	return ToFilteredOrdersList(oiList, *from)
+}
