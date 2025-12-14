@@ -13,14 +13,25 @@
     ```bash
     go build -o orders-processor main.go
     ```
+
   * Vous pouvez ensuite exécuter le binaire avec la commande suivante:
     ```bash
     ./order-processor <file.json>
     ```
 
+    Avec filtre:
+    ```bash
+    ./order-processor -from=2024-11-01 orders.json
+    ```
+
 - Pour lancer directement avec `go run`:
   ```bash
   go run main.go <file.json>
+  ```
+
+  Avec filtre:
+  ```bash
+  go run main.go -from=2024-11-01 orders.json
   ```
 
 - Si vous souhaitez traiter vos propres fichiers de commande, placez les dans le dossier **data**.
